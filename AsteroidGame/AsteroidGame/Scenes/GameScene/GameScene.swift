@@ -113,6 +113,8 @@ class GameScene: SKScene {
             scene?.run(thrustSound, withKey: "thrustSound")
         case "hyper":
             animateHyperSpace()
+        case "fire":
+                    createPlayerBullet()
         default:
             return
         }
@@ -156,4 +158,25 @@ class GameScene: SKScene {
         
         player.run(animation)
     }
+    
+    func createPlayerBullet() {
+           
+           guard isHyperSpacingOn == false && isPlayerAlive == true else { return }
+           let bullet = SKShapeNode(ellipseOf: CGSize(width: 3, height: 3))
+           let shootSound = SKAction.playSoundFileNamed("fire.wav", waitForCompletion: false)
+           let move = SKAction.move(to: findDestination(start: player.position, angle: rotation), duration: 0.5)
+           let sequence = SKAction.sequence([shootSound, move, .removeFromParent()])
+           
+           bullet.position = player.position
+           bullet.zPosition = 0
+           bullet.fillColor = .white
+           bullet.name = "playerBullet"
+           addChild(bullet)
+           
+           bullet.physicsBody = SKPhysicsBody(circleOfRadius: 3.0)
+           bullet.physicsBody?.affectedByGravity = false
+           bullet.physicsBody?.isDynamic = true
+           bullet.run(sequence)
+       }
+
 }
