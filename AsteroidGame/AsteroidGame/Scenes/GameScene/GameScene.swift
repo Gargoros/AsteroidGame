@@ -6,83 +6,154 @@
 //
 
 import SpriteKit
-import GameplayKit
 
 class GameScene: SKScene {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    //MARK: - PROPERtIES
+    private var fire:   SKSpriteNode?
+    private var left:   SKSpriteNode?
+    private var right:  SKSpriteNode?
+    private var hyper:  SKSpriteNode?
+    private var thrust: SKSpriteNode?
     
+    //MARK: - PLAYER PROPERTIES
+    let player = SKSpriteNode(imageNamed: "ship-still")
+    var isPlayerAlive = false
+    var isRotatingLeft = false
+    var isRotatingRight = false
+    var isThrustOn = false
+    var isHyperSpacingOn = false
+    
+    //MARK: - CONTROLL PROPERTIES
+    var rotation: CGFloat = 0.0 {
+        didSet {
+            player.zRotation = deg2rad(degrees: rotation)
+        }
+    }
+    let rotationFactor: CGFloat = 4.0
+    var xVector: CGFloat = 0.0
+    var yVector: CGFloat = 0.0
+    var rotationVector: CGVector = .zero
+    var thrustFactor: CGFloat = 1.0
+    let thrustSound = SKAction.repeatForever(SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: true))
+    
+    //MARK: - METHODS
     override func didMove(to view: SKView) {
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+        setupLabelsAndButtons()
+        createPlayer(atX: frame.width / 2, atY: frame.height / 2)
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
+    override func update(_ currentTime: TimeInterval) {
+        if isRotatingLeft {
+            rotation += rotationFactor
+            if rotation == 360 { rotation = 0 }
+        } else if isRotatingRight {
+            rotation -= rotationFactor
+            if rotation < 0 { rotation = 360 - rotationFactor }
         }
+        
+        if isThrustOn {
+            xVector = sin(player.zRotation) * -thrustFactor
+            yVector = cos(player.zRotation) * thrustFactor
+            rotationVector = CGVector(dx: xVector, dy: yVector)
+            player.physicsBody?.applyImpulse(rotationVector)
+        }
+        
+        if player.position.y > frame.height { player.position.y = 0}
+        if player.position.y < 0 { player.position.y = frame.height}
+        if player.position.x > frame.width { player.position.x = 0}
+        if player.position.x < 0 { player.position.x = frame.width}
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
+    //MARK: - NODE METHODS
+    func setupLabelsAndButtons() {
+        fire   = childNode(withName: "fire") as? SKSpriteNode
+        left   = childNode(withName: "left") as? SKSpriteNode
+        right  = childNode(withName: "right") as? SKSpriteNode
+        hyper  = childNode(withName: "hyper") as? SKSpriteNode
+        thrust = childNode(withName: "thrust") as? SKSpriteNode
     }
     
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+    func createPlayer(atX: Double, atY: Double) {
+        guard childNode(withName: "player") == nil else { return }
+        player.position = CGPoint(x: atX, y: atY)
+        player.zPosition = 0
+        player.size = CGSize(width: 120, height: 120)
+        player.name = "player"
+        player.texture = SKTexture(imageNamed: "ship-still")
+        addChild(player)
+        
+        player.physicsBody = SKPhysicsBody(
+            texture: player.texture ?? SKTexture(imageNamed: "ship-still"), size: player.size)
+        player.physicsBody?.affectedByGravity = false
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.mass = 0.2
+        player.physicsBody?.allowsRotation = false
+        
+        isPlayerAlive = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        let tappedNode = nodes(at: location)
+        guard let tapped = tappedNode.first else { return }
+        
+        switch tapped.name {
+        case "left":
+            isRotatingLeft = true
+            isRotatingRight = false
+        case "right":
+            isRotatingLeft = false
+            isRotatingRight = true
+        case "thrust":
+            isThrustOn = true
+            player.texture = SKTexture(imageNamed: "ship-moving")
+            scene?.run(thrustSound, withKey: "thrustSound")
+        case "hyper":
+            animateHyperSpace()
+        default:
+            return
+        }
+            
     }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        let tappedNode = nodes(at: location)
+        guard let tapped = tappedNode.first else { return }
+        
+        switch tapped.name {
+        case "left":
+            isRotatingLeft = false
+            isRotatingRight = false
+        case "right":
+            isRotatingLeft = false
+            isRotatingRight = false
+        case "thrust":
+            isThrustOn = false
+            player.texture = SKTexture(imageNamed: "ship-still")
+            scene?.removeAction(forKey: "thrustSound")
+        default:
+            return
+        }
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+    func animateHyperSpace() {
+        
+        let outAnimation: SKAction = SKAction(named: "outAnimation")!
+        let inAnimation: SKAction = SKAction(named: "inAnimation")!
+        
+        let randomX = CGFloat.random(in: 100...1948)
+        let randomY = CGFloat.random(in: 150...1436)
+        let stopShooting = SKAction.run { self.isHyperSpacingOn = true }
+        let startShooting = SKAction.run { self.isHyperSpacingOn = false }
+        let movePlayer = SKAction.move(to: CGPoint(x: randomX, y: randomY), duration: 0.0)
+        let wait = SKAction.wait(forDuration: 0.25)
+        let animation = SKAction.sequence([stopShooting, outAnimation, wait, movePlayer, wait, inAnimation, startShooting])
+        
+        player.run(animation)
     }
 }

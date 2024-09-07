@@ -26,6 +26,10 @@
 		8C9B00442C8C5CBF00B8946E /* bangMedium.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8C9B003A2C8C5CBF00B8946E /* bangMedium.wav */; };
 		8C9B00452C8C5CBF00B8946E /* fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8C9B003B2C8C5CBF00B8946E /* fire.wav */; };
 		8C9B00472C8C5D0D00B8946E /* Skia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C9B00462C8C5D0D00B8946E /* Skia.ttf */; };
+		8C9B004A2C8C6E1A00B8946E /* OpeningScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8C9B00492C8C6E1A00B8946E /* OpeningScene.sks */; };
+		8C9B004C2C8C6EE000B8946E /* OpeningScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9B004B2C8C6EE000B8946E /* OpeningScene.swift */; };
+		8C9B004E2C8C6FC500B8946E /* Asteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9B004D2C8C6FC500B8946E /* Asteroid.swift */; };
+		8C9B00502C8C700600B8946E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9B004F2C8C700600B8946E /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +54,10 @@
 		8C9B003A2C8C5CBF00B8946E /* bangMedium.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bangMedium.wav; sourceTree = "<group>"; };
 		8C9B003B2C8C5CBF00B8946E /* fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fire.wav; sourceTree = "<group>"; };
 		8C9B00462C8C5D0D00B8946E /* Skia.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Skia.ttf; sourceTree = "<group>"; };
+		8C9B00492C8C6E1A00B8946E /* OpeningScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OpeningScene.sks; sourceTree = "<group>"; };
+		8C9B004B2C8C6EE000B8946E /* OpeningScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningScene.swift; sourceTree = "<group>"; };
+		8C9B004D2C8C6FC500B8946E /* Asteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asteroid.swift; sourceTree = "<group>"; };
+		8C9B004F2C8C700600B8946E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +94,7 @@
 				8C9B00122C8C5A1D00B8946E /* AppDelegate.swift */,
 				8C9B001A2C8C5A1D00B8946E /* GameViewController.swift */,
 				8C9B001C2C8C5A1D00B8946E /* Main.storyboard */,
+				8C9B004F2C8C700600B8946E /* Constants.swift */,
 				8C9B002F2C8C5BBE00B8946E /* Scenes */,
 				8C9B002A2C8C5AEB00B8946E /* Resources */,
 			);
@@ -141,6 +150,7 @@
 				8C9B00142C8C5A1D00B8946E /* GameScene.sks */,
 				8C9B00162C8C5A1D00B8946E /* Actions.sks */,
 				8C9B00182C8C5A1D00B8946E /* GameScene.swift */,
+				8C9B004D2C8C6FC500B8946E /* Asteroid.swift */,
 			);
 			path = GameScene;
 			sourceTree = "<group>";
@@ -158,6 +168,8 @@
 		8C9B00302C8C5BCB00B8946E /* OpeningScene */ = {
 			isa = PBXGroup;
 			children = (
+				8C9B00492C8C6E1A00B8946E /* OpeningScene.sks */,
+				8C9B004B2C8C6EE000B8946E /* OpeningScene.swift */,
 			);
 			path = OpeningScene;
 			sourceTree = "<group>";
@@ -231,6 +243,7 @@
 				8C9B00452C8C5CBF00B8946E /* fire.wav in Resources */,
 				8C9B003F2C8C5CBF00B8946E /* bangSmall.wav in Resources */,
 				8C9B00152C8C5A1D00B8946E /* GameScene.sks in Resources */,
+				8C9B004A2C8C6E1A00B8946E /* OpeningScene.sks in Resources */,
 				8C9B00402C8C5CBF00B8946E /* beat1.wav in Resources */,
 				8C9B001E2C8C5A1D00B8946E /* Base in Resources */,
 				8C9B00202C8C5A1E00B8946E /* Assets.xcassets in Resources */,
@@ -257,6 +270,9 @@
 				8C9B00192C8C5A1D00B8946E /* GameScene.swift in Sources */,
 				8C9B001B2C8C5A1D00B8946E /* GameViewController.swift in Sources */,
 				8C9B00132C8C5A1D00B8946E /* AppDelegate.swift in Sources */,
+				8C9B004C2C8C6EE000B8946E /* OpeningScene.swift in Sources */,
+				8C9B004E2C8C6FC500B8946E /* Asteroid.swift in Sources */,
+				8C9B00502C8C700600B8946E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
