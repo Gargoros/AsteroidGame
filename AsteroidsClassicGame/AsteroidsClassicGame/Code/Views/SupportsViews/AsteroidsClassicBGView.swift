@@ -8,16 +8,10 @@
 import SwiftUI
 
 struct AsteroidsClassicBGView: View {
-    //MARK: - Properties
-    private let bgImage: Image
-    //MARK: - Init
-    init(bgImage: Image) {
-        self.bgImage = bgImage
-    }
     //MARK: - Views
     var body: some View {
         GeometryReader { geometry in
-            bgImage
+            Image(.appBG)
                 .resizable()
                 .scaledToFill()
                 .frame(width: geometry.size.width, height: geometry.size.height)
@@ -27,5 +21,5 @@ struct AsteroidsClassicBGView: View {
 }
 
 #Preview {
-    AsteroidsClassicBGView(bgImage: Image(.appBG))
+    AsteroidsClassicBGView()
 }
