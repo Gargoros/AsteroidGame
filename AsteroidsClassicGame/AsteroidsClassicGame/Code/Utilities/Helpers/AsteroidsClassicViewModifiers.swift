@@ -1,8 +1,16 @@
 //
 //  AsteroidsClassicViewModifiers.swift
-//  AsteroidsClassicGame
+//  AsteroidsClassicGame  AsteroidsClassic
 //
 //  Created by MIKHAIL ZHACHKO on 29.09.25.
 //
 
-import Foundation
+import SwiftUI
+
+struct AsteroidsClassicMainViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .ignoresSafeArea()
+            .statusBarHidden(true)
+    }
+}
