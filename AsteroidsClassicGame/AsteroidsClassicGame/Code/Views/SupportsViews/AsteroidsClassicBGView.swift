@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct AsteroidsClassicBGView: View {
+    //MARK: - Properties
+    private let bgImage: Image
+    //MARK: - Init
+    init(bgImage: Image) {
+        self.bgImage = bgImage
+    }
+    //MARK: - Views
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geometry in
+            bgImage
+                .resizable()
+                .scaledToFill()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+        .mainModifier()
     }
 }
 
 #Preview {
-    AsteroidsClassicBGView()
+    AsteroidsClassicBGView(bgImage: Image(.appBG))
 }
