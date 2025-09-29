@@ -41,14 +41,12 @@ struct AsteroidsClassicLoadingView: View {
                     .offset(x: offsetX[4], y: offsetY[4])
                 VStack{
                     Spacer()
-                    Text("Loading...")
+                    Text(AsteroidsClassicAppConstants.appString.loading)
                         .textSetting(textSize: width * 0.1)
                     
                 }
                 .position(x: width * 0.5, y: height * 0.5)
-                .padding(.horizontal, width * 0.05)
-                .padding(.vertical, height > 755 ? height * 0.055 : height * 0.03)
-                
+                .padding(width * 0.05)                
             }
             .onReceive(timer) { _ in
                 if showLoading {

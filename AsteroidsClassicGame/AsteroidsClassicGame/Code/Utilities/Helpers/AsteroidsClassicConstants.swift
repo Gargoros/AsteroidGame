@@ -35,7 +35,9 @@ enum AsteroidsClassicAppConstants {
         static let initOnStatus: Bool = true
     }
     //MARK: - Strings
-    enum appString {}
+    enum appString {
+        static let loading: String = "Loading..."
+    }
     //MARK: - Numbers
     enum appNumb {
         static let zeroValue: UInt = 0

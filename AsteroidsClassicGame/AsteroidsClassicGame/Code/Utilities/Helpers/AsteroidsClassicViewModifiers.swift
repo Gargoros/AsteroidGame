@@ -37,3 +37,26 @@ struct AsteroidsClassicTextViewModifiers: ViewModifier {
             .shadow(color: shadowColor, radius: 0.1, x: 0.0, y: 2.0)
     }
 }
+
+struct AsteroidsClassicNameTextViewModifiers: ViewModifier {
+    //MARK: - Properties
+    private let textColors: [Color]
+    private let textSize: CGFloat
+    private let shadowColor: Color
+    //MARK: - Init
+    init(textColors: [Color], textSize: CGFloat, shadowColor: Color) {
+        self.textColors = textColors
+        self.textSize = textSize
+        self.shadowColor = shadowColor
+    }
+    //MARK: - View
+    func body(content: Content) -> some View {
+        content
+            .font(.custom(AsteroidsClassicAppConstants.fonts.regular, size: textSize))
+            .foregroundStyle(LinearGradient(colors: textColors, startPoint: .top, endPoint: .bottom))
+            .minimumScaleFactor(0.01)
+            .lineLimit(1)
+            .multilineTextAlignment(.center)
+            .shadow(color: shadowColor, radius: 0.1, x: 0.0, y: 2.0)
+    }
+}
