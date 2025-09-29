@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "HPIcon.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
