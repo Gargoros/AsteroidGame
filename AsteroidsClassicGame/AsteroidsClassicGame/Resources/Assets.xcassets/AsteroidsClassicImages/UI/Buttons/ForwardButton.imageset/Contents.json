@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ForwardButton.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

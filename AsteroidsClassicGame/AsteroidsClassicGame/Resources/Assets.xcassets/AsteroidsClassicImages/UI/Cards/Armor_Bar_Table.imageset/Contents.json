@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Armor_Bar_Table.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Health_Dot.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
