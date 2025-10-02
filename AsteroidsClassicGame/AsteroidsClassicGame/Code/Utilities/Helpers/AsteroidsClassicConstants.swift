@@ -37,6 +37,8 @@ enum AsteroidsClassicAppConstants {
     //MARK: - Strings
     enum appString {
         static let loading: String = "Loading..."
+        static let appName: String = "Asteroid Game"
+        static let bestScore: String = "Best: "
     }
     //MARK: - Numbers
     enum appNumb {
