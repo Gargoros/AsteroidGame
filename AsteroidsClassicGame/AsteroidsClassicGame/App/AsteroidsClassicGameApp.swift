@@ -12,7 +12,7 @@ struct AsteroidsClassicGameApp: App {
     @UIApplicationDelegateAdaptor(AsteroidsClassicAppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AsteroidsClassicMainView(showMenu: .constant(true))
         }
     }
 }

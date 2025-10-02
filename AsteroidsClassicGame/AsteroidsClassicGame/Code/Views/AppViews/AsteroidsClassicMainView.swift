@@ -80,7 +80,7 @@ struct AsteroidsClassicMainView: View {
         .fullScreenCover(isPresented: $showInfo) { AsteroidsClassicInfoView() }
         .fullScreenCover(isPresented: $showGame) { AsteroidsClassicGameView() }
         .fullScreenCover(isPresented: $showStore) { AsteroidsClassicStoreView() }
-        .fullScreenCover(isPresented: $showSettings) { AsteroidsClassicSettingsView() }
+        .fullScreenCover(isPresented: $showSettings) { AsteroidsClassicSettingsView(showSettings: $showSettings) }
     }
     //TODO: - Added score info and gems info
 }
