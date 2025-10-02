@@ -32,9 +32,17 @@ struct AsteroidsClassicMainView: View {
                     AsteroidsClassicButtonView(bImage: Image(.settingsButton)) { showSettings.toggle() }
                 }
                 .frame(height: height * 0.07)
-                Text("Asteroid Game")
-                    .textNameSettings(textSize: width * 0.1)
                 Spacer()
+                Text(AsteroidsClassicAppConstants.appString.appName)
+                    .textNameSettings(textSize: width * 0.1)
+                AsteroidsClassicUIView(image: Image(.table04), width: width * 0.7)
+                    .overlay {
+                        HStack{
+                            Text(AsteroidsClassicAppConstants.appString.bestScore + "\(AsteroidsClassicUserDefaults.bestScore)")
+                                .textSetting()
+                                .padding()
+                        }
+                    }
                 VStack{
                     AsteroidsClassicButtonView(bImage: Image(.startButton)) { showGame.toggle() }
                         .frame(width: width * 0.7)
@@ -46,11 +54,33 @@ struct AsteroidsClassicMainView: View {
                     .frame(height: height * 0.07)
                     .padding(.horizontal, width * 0.2)
                 }
-                Spacer()
+                AsteroidsClassicUIView(image: Image(.table04), width: width * 0.7)
+                    .overlay {
+                        VStack(alignment: .leading){
+                            HStack{
+                                AsteroidsClassicUIView(image: Image(.cristalIcon), width: width * 0.05)
+                                Text("\(AsteroidsClassicUserDefaults.gameWhiteCrystal)")
+                                    .textSetting()
+                            }
+                            HStack{
+                                AsteroidsClassicUIView(image: Image(.redeCristalIcon01), width: width * 0.05)
+                                Text("\(AsteroidsClassicUserDefaults.gameRedCrystal)")
+                                    .textSetting()
+                            }
+                        }
+                        .offset(x: -width * 0.01)
+                        .padding(.horizontal)
+                        .padding()
+                    }
             }
             .padding(width * 0.05)
             .position(x: width * 0.5, y: height * 0.5)
         }
+        .fullScreenCover(isPresented: $showAwards) { AsteroidsClassicAwardsView() }
+        .fullScreenCover(isPresented: $showInfo) { AsteroidsClassicInfoView() }
+        .fullScreenCover(isPresented: $showGame) { AsteroidsClassicGameView() }
+        .fullScreenCover(isPresented: $showStore) { AsteroidsClassicStoreView() }
+        .fullScreenCover(isPresented: $showSettings) { AsteroidsClassicSettingsView() }
     }
     //TODO: - Added score info and gems info
 }
