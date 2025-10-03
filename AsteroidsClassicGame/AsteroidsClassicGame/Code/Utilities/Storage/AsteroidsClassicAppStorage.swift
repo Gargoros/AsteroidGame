@@ -54,4 +54,41 @@ final class AsteroidsClassicUserDefaults {
     //MARK: - Upgrades
     //MARK: - Store
     //MARK: - Awards
+    static var destroyedAsteroids: UInt {
+        get { storage.value(forKey: AsteroidsClassicAppConstants.dataKeys.asteroids.rawValue) as? UInt ?? zeroValue }
+        set {
+            if newValue <= maxValue {
+                storage.set(newValue, forKey: AsteroidsClassicAppConstants.dataKeys.asteroids.rawValue)
+            }
+        }
+    }
+    static var defeatedBosses: UInt {
+        get { storage.value(forKey: AsteroidsClassicAppConstants.dataKeys.boss.rawValue) as? UInt ?? zeroValue }
+        set {
+            if newValue <= maxValue {
+                storage.set(newValue, forKey: AsteroidsClassicAppConstants.dataKeys.boss.rawValue)
+            }
+        }
+    }
+    static var survivingMinutes: UInt {
+        get { storage.value(forKey: AsteroidsClassicAppConstants.dataKeys.minutes.rawValue) as? UInt ?? zeroValue }
+        set {
+            if newValue <= maxValue {
+                storage.set(newValue, forKey: AsteroidsClassicAppConstants.dataKeys.minutes.rawValue)
+            }
+        }
+    }
+    static func isAwardUnlocked(index: Int) -> Bool {
+        storage.bool(forKey: AsteroidsClassicAppConstants.appString.awardsStatus + "\(index)")
+    }
+    
+    static func unlockAward(index: Int) {
+        storage.set(true, forKey: AsteroidsClassicAppConstants.appString.awardsStatus + "\(index)")
+    }
+    
+    static func resetAwards() {
+        for i in 0..<allAwards.count {
+            storage.set(false, forKey: AsteroidsClassicAppConstants.appString.awardsStatus + "\(i)")
+        }
+    }
 }
