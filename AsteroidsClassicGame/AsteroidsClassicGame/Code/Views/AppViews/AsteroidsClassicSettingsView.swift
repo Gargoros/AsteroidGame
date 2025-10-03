@@ -13,8 +13,6 @@ struct AsteroidsClassicSettingsView: View {
     @State private var isSoundOn: Bool = AsteroidsClassicUserDefaults.isSoundOn
     @State private var isHapticOn: Bool = AsteroidsClassicUserDefaults.isHapticOn
     @State private var isMusicOn: Bool = AsteroidsClassicUserDefaults.isMusicOn
-    @State private var statusOpacity: CGFloat = 1.0
-    @State private var statusScale: CGFloat = 1.0
     //MARK: - Init
     init(showSettings: Binding<Bool>) {
         self._showSettings = showSettings

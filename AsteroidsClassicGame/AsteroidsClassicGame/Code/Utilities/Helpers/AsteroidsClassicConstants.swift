@@ -22,6 +22,8 @@ enum AsteroidsClassicAppConstants {
         case spaceShip
         case mine
         case asteroids
+        case boss
+        case minutes
         //MARK: - Crystal
         case whiteCrystal
         case redCrystal
@@ -45,6 +47,8 @@ enum AsteroidsClassicAppConstants {
         static let soundsTitle: String = "SOUNDS"
         static let musicTitle: String = "MUSIC"
         static let hapticsTitle: String = "HAPTICS"
+        //MARK: - Helper strings
+        static let awardsStatus: String = "award_status_"
     }
     //MARK: - Numbers
     enum appNumb {

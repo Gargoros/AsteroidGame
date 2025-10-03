@@ -76,7 +76,7 @@ struct AsteroidsClassicMainView: View {
             .padding(width * 0.05)
             .position(x: width * 0.5, y: height * 0.5)
         }
-        .fullScreenCover(isPresented: $showAwards) { AsteroidsClassicAwardsView() }
+        .fullScreenCover(isPresented: $showAwards) { AsteroidsClassicAwardsView(showAwards: $showAwards) }
         .fullScreenCover(isPresented: $showInfo) { AsteroidsClassicInfoView() }
         .fullScreenCover(isPresented: $showGame) { AsteroidsClassicGameView() }
         .fullScreenCover(isPresented: $showStore) { AsteroidsClassicStoreView() }
