@@ -53,6 +53,71 @@ final class AsteroidsClassicUserDefaults {
     }
     //MARK: - Upgrades
     //MARK: - Store
+    static func isStoreItemPurchased(index: Int) -> Bool {
+        storage.bool(forKey: AsteroidsClassicAppConstants.appString.storeItemStatus + "\(index)")
+    }
+    static func isStoreItemSelected(index: Int) -> Bool {
+        storage.bool(forKey: AsteroidsClassicAppConstants.appString.storeItemSelected + "\(index)")
+    }
+    
+    //MARK: - Store Management
+    static func purchaseStoreItem(index: Int) {
+        storage.set(true, forKey: AsteroidsClassicAppConstants.appString.storeItemStatus + "\(index)")
+    }
+    
+    static func selectStoreItem(index: Int) {
+        for i in 0..<AsteroidsClassicAppConstants.storeItems.allShips.count {
+            storage.set(false, forKey: AsteroidsClassicAppConstants.appString.storeItemSelected + "\(i)")
+        }
+        storage.set(true, forKey: AsteroidsClassicAppConstants.appString.storeItemSelected + "\(index)")
+    }
+    
+    static func canAffordStoreItem(index: Int) -> Bool {
+        guard index < AsteroidsClassicAppConstants.storeItems.allShips.count else { return false }
+        let itemCrystal = AsteroidsClassicAppConstants.storeItems.allShips[index].crystal
+        return gameWhiteCrystal >= UInt(itemCrystal)
+    }
+    
+    static func purchaseAndSelectStoreItem(index: Int) -> Bool {
+        guard canAffordStoreItem(index: index) else { return false }
+        
+        let itemCrystal = AsteroidsClassicAppConstants.storeItems.allShips[index].crystal
+        
+        if itemCrystal > 0 {
+            gameWhiteCrystal -= UInt(itemCrystal)
+        }
+        
+        purchaseStoreItem(index: index)
+        selectStoreItem(index: index)
+        
+        return true
+    }
+    
+    static func changeSelectedShip(to index: Int) -> Bool {
+        guard isStoreItemPurchased(index: index) else { return false }
+        selectStoreItem(index: index)
+        return true
+    }
+    
+    static func initializeDefaultShip() {
+        if !isStoreItemPurchased(index: 0) {
+            purchaseStoreItem(index: 0)
+            selectStoreItem(index: 0)
+        }
+    }
+    
+    static func getSelectedShipIndex() -> Int {
+        for i in 0..<AsteroidsClassicAppConstants.storeItems.allShips.count {
+            if isStoreItemSelected(index: i) {
+                return i
+            }
+        }
+        return 0
+    }
+    
+    static func getAllStoreItems() -> [AsteroidsClassicStoreItemModel] {
+        return AsteroidsClassicStoreItemModel.createAllShips()
+    }
     //MARK: - Awards
     static var destroyedAsteroids: UInt {
         get { storage.value(forKey: AsteroidsClassicAppConstants.dataKeys.asteroids.rawValue) as? UInt ?? zeroValue }

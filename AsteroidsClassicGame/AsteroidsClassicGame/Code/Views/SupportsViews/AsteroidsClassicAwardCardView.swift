@@ -22,8 +22,8 @@ struct AsteroidsClassicAwardCardView: View {
             .overlay {
                 HStack(alignment: .center, spacing: size * 0.02) {
                     AsteroidsClassicUIView(image: award.awardImage, width: size * 0.15)
-                        .opacity(award.awardStatus ? 1 : 0.4) // полупрозрачный если не открыт
-                        .grayscale(award.awardStatus ? 0 : 1) // серый если не открыт
+                        .opacity(award.awardStatus ? 1 : 0.4)
+                        .grayscale(award.awardStatus ? 0 : 1)
                     
                     VStack(alignment: .leading, spacing: size * 0.02) {
                         Text(award.awardTitle)
