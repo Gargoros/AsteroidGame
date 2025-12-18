@@ -67,6 +67,18 @@ struct AsteroidsClassicMainView: View {
                                 Text("\(AsteroidsClassicUserDefaults.gameRedCrystal)")
                                     .textSetting()
                             }
+                            // Selected ship display
+                            HStack {
+                                let selectedShipIndex = AsteroidsClassicUserDefaults.getSelectedShipIndex()
+                                let selectedShip = AsteroidsClassicAppConstants.storeItems.allShips[selectedShipIndex]
+                                Image(selectedShip.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: width * 0.05)
+                                Text(selectedShip.title)
+                                    .textSetting()
+                                    .font(.custom(AsteroidsClassicAppConstants.fonts.regular, size: width * 0.03))
+                            }
                         }
                         .offset(x: -width * 0.01)
                         .padding(.horizontal)
@@ -79,7 +91,7 @@ struct AsteroidsClassicMainView: View {
         .fullScreenCover(isPresented: $showAwards) { AsteroidsClassicAwardsView(showAwards: $showAwards) }
         .fullScreenCover(isPresented: $showInfo) { AsteroidsClassicInfoView() }
         .fullScreenCover(isPresented: $showGame) { AsteroidsClassicGameView() }
-        .fullScreenCover(isPresented: $showStore) { AsteroidsClassicStoreView() }
+        .fullScreenCover(isPresented: $showStore) { AsteroidsClassicStoreView(showStore: $showStore) }
         .fullScreenCover(isPresented: $showSettings) { AsteroidsClassicSettingsView(showSettings: $showSettings) }
     }
     //TODO: - Added score info and gems info

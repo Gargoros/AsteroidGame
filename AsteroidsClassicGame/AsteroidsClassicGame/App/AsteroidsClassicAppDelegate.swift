@@ -11,8 +11,9 @@ import UIKit
 
 class AsteroidsClassicAppDelegate : NSObject, UIApplicationDelegate {
     static private(set) var instance: AsteroidsClassicAppDelegate?
-    func application(_ application: UIApplication, AsteroidsClassicAppDelegate launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         AsteroidsClassicAppDelegate.instance = self
+        AsteroidsClassicUserDefaults.initializeDefaultShip()
         return true
     }
     static var orientationLock = UIInterfaceOrientationMask.portrait {
