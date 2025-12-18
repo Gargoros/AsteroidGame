@@ -31,7 +31,7 @@ struct AsteroidsClassicStoreView: View {
                 headerView(width: width, height: height)
                 
                 // Store items grid
-                ScrollView {
+                ScrollView(showsIndicators: false)  {
                     LazyVGrid(columns: [
                         GridItem(.flexible()),
                         GridItem(.flexible())
@@ -54,7 +54,7 @@ struct AsteroidsClassicStoreView: View {
         HStack {
             // Crystals display
             HStack(spacing: width * 0.02) {
-                Image("Crystal_White")
+                Image("CristalIcon")
                     .resizable()
                     .scaledToFit()
                     .frame(width: width * 0.08)
@@ -83,28 +83,13 @@ struct AsteroidsClassicStoreView: View {
             // Ship image
             ZStack {
                 RoundedRectangle(cornerRadius: width * 0.03)
-                    .fill(Color.black.opacity(0.7))
+                    .fill(Color.black.opacity(0.2))
                     .frame(height: width * 0.3)
                 
                 item.storeItemImage
                     .resizable()
                     .scaledToFit()
                     .frame(width: width * 0.25)
-                
-                // Selected indicator
-                if item.isSelected {
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Image("SelectedIcon")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: width * 0.06)
-                        }
-                        Spacer()
-                    }
-                    .padding(width * 0.02)
-                }
             }
             
             // Ship info
@@ -135,7 +120,7 @@ struct AsteroidsClassicStoreView: View {
                     }
                 } else {
                     HStack {
-                        Image("Crystal_White")
+                        Image("CristalIcon")
                             .resizable()
                             .scaledToFit()
                             .frame(width: width * 0.04)
